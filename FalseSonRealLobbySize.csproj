@@ -16,10 +16,4 @@
     <PackageReference Include="MMHOOK.RoR2" Version="2024.9.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="Facepunch.Steamworks">
-      <HintPath>$(RoR2Path)\Risk of Rain 2_Data\Managed\Facepunch.Steamworks.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
 </Project>
