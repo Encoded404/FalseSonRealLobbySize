@@ -1,0 +1,55 @@
+name: Build and Publish to Thunderstore
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Triggers on version tags like v1.0.0, v1.2.3, etc.
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Extract version from tag
+        id: get_version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
+
+      - name: Prepare Thunderstore package
+        run: |
+          mkdir -p thunderstore_package
+          cp bin/Release/netstandard2.1/FalseSonRealLobbySize.dll thunderstore_package/
+          cp thunderstore/icon.png thunderstore_package/
+          cp thunderstore/README.md thunderstore_package/
+          cp thunderstore/manifest.json thunderstore_package/
+          # Update version in manifest
+          sed -i 's/"version_number": ".*"/"version_number": "${{ steps.get_version.outputs.VERSION }}"/' thunderstore_package/manifest.json
+
+      - name: Upload to Thunderstore
+        uses: GreenTF/upload-thunderstore-package@v4.3
+        with:
+          namespace: Encoded404  # Your Thunderstore team name
+          name: FalseSonRealLobbySize
+          description: Adjusts False Son's display size on the character selection screen to be more accurate
+          token: ${{ secrets.THUNDERSTORE_TOKEN }}
+          version: ${{ steps.get_version.outputs.VERSION }}
+          community: riskofrain2
+          categories: |
+            mods
+            tweaks
+          deps: |
+            bbepis-BepInExPack-5.4.2108
+          path: thunderstore_package/

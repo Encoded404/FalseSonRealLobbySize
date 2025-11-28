@@ -1,0 +1,9 @@
+{
+    "name": "FalseSonRealLobbySize",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/Encoded404/FalseSonRealLobbySize",
+    "description": "Adjusts False Son's display size on the character selection screen to be more accurate",
+    "dependencies": [
+        "bbepis-BepInExPack-5.4.2108"
+    ]
+}
