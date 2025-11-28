@@ -50,6 +50,7 @@ jobs:
           categories: |
             mods
             tweaks
+            client-side
           deps: |
             bbepis-BepInExPack-5.4.2108
           path: thunderstore_package/
