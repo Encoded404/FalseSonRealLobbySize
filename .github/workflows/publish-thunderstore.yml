@@ -47,6 +47,7 @@ jobs:
           token: ${{ secrets.THUNDERSTORE_TOKEN }}
           version: ${{ steps.get_version.outputs.VERSION }}
           community: riskofrain2
+          repo: thunderstore.io
           categories: |
             mods
             tweaks
