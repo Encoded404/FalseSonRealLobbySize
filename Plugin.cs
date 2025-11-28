@@ -7,6 +7,7 @@ using UnityEngine;
 namespace FalseSonRealLobbySize
 {
     [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
+    [BepInIncompatibility("com.TheTimeSweeper.SillyFalseSon")]
     public class Plugin : BaseUnityPlugin
     {
         public const string PluginGUID = "Encoded404.Encoded404.FalseSonRealLobbySize";
@@ -29,7 +30,7 @@ namespace FalseSonRealLobbySize
             );
 
             RoR2Application.onLoad += OnLoad;
-            
+
             Log.LogInfo($"{PluginName} v{PluginVersion} loaded!");
         }
 
